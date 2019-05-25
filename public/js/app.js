@@ -32,7 +32,11 @@ window.onload = function () {
     var currentPath = window.location.pathname;
     
     if(currentPath === '/') {
-        view.innerHTML = 'You are on the root page';
+        
+        var nowPlaying = httpGetTheaterMovies('https://api.themoviedb.org/3/movie/now_playing?api_key=bc50218d91157b1ba4f142ef7baaa6a0&language=en-US&page=1');
+        view.innerHTML = nowPlaying;
+        
+        console.log(nowPlaying.results[0]);
     } else {
         var route = myFirstRouter.routes.filter(r => r.path === currentPath)[0];
 
@@ -42,4 +46,12 @@ window.onload = function () {
             view.innerHTML = '404: Route not found';
         }
     }
+
+    function httpGetTheaterMovies(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return JSON.parse(xmlHttp.responseText);
+}
 }
