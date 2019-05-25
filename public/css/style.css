@@ -1,4 +1,30 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #123456;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+}
+
 .navigation {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    list-style: none;
+}
+
+.navigation li {
+    color: white;
+}
+
+.navigation_sitetitle {
+    font-size: 1.3rem;
+    font-weight: bold;
 }
