@@ -111,3 +111,15 @@ function isVisible(elem) {
 }
 
 window.onscroll = isVisible;
+
+function showDetails(id) {
+    console.log(id);
+    let movie = getHttpRequest("https://api.themoviedb.org/3/movie/" + id +"?api_key=bc50218d91157b1ba4f142ef7baaa6a0&language=en-US&page=1");
+    let videos = getHttpRequest("https://api.themoviedb.org/3/movie/" + id +"/videos?api_key=bc50218d91157b1ba4f142ef7baaa6a0&language=en-US&page=1");
+    let reviews = getHttpRequest("https://api.themoviedb.org/3/movie/" + id +"/reviews?api_key=bc50218d91157b1ba4f142ef7baaa6a0&language=en-US&page=1");
+    let similar = getHttpRequest("https://api.themoviedb.org/3/movie/" + id +"/similar?api_key=bc50218d91157b1ba4f142ef7baaa6a0&language=en-US&page=1");
+    console.log(movie)
+    console.log(videos)
+    console.log(reviews)
+    console.log(similar)
+}
