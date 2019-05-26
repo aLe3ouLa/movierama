@@ -2,6 +2,15 @@
 
 <html>
   <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <title>MovieRama</title>
 
     <link
@@ -16,21 +25,22 @@
       <ul class="navigation">
         <li route="/" class="navigation_sitetitle">MovieRama</li>
         <li>
-          <input id="searchMovie" type="search" placeholder="Search movie"  />
+          <input id="searchMovie" type="search" placeholder="Search movie" />
           <button route="/search" onclick="searchMovie(this)">Search</button>
         </li>
       </ul>
     </header>
+
     <div id="view"></div>
     <div id="search">
-            <h3>Search:</h3>
-            <ul id="ul-list-search"></ul>
+      <h3>Search:</h3>
+      <ul id="ul-list-search"></ul>
     </div>
     <div id="theaters">
       <h3>In theaters:</h3>
       <ul id="ul-list"></ul>
     </div>
-
+    <script src="/public/js/movies.js"></script>
     <script src="/public/js/app.js"></script>
     <script id="template-list-item" type="text/template">
       <li>
