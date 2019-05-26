@@ -16,13 +16,17 @@
       <ul class="navigation">
         <li route="/" class="navigation_sitetitle">MovieRama</li>
         <li>
-          <input type="text" placeholder="Search movie" />
+          <input id="searchMovie" type="search" placeholder="Search movie"  />
+          <button route="/search" onclick="searchMovie(this)">Search</button>
         </li>
       </ul>
     </header>
-
     <div id="view"></div>
-    <div>
+    <div id="search">
+            <h3>Search:</h3>
+            <ul id="ul-list-search"></ul>
+    </div>
+    <div id="theaters">
       <h3>In theaters:</h3>
       <ul id="ul-list"></ul>
     </div>

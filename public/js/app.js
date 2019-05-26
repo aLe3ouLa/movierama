@@ -1,5 +1,7 @@
 window.onload = function() {
   var view = document.getElementById("view");
+  var theaters = document.getElementById("theaters");
+  var search = document.getElementById("search");
 
   var activeRoutes = Array.from(document.querySelectorAll("[route]"));
   function navigate(event) {
@@ -7,10 +9,10 @@ window.onload = function() {
     let routeInfo = myFirstRouter.routes.filter(r => r.path === route)[0];
     console.log(routeInfo);
     if (!routeInfo) {
-      view.innerHTML = "No route exists with this path";
+    //   view.innerHTML = "No route exists with this path";
     } else {
       window.history.pushState({}, "name", routeInfo.path);
-      view.innerHTML = " You have clicked the " + routeInfo.name + " route";
+    //   view.innerHTML = " You have clicked the " + routeInfo.name + " route";
     }
   }
 
@@ -34,13 +36,17 @@ window.onload = function() {
 
   if (currentPath === "/") {
     loadMovies(1);
+    theaters.style.display = "block";
+    search.style.display = "none";
   } else {
     var route = myFirstRouter.routes.filter(r => r.path === currentPath)[0];
 
     if (route) {
-      view.innerHTML = "You are on the " + route ? route.name : "" + "path";
+    //   view.innerHTML = "You are on the " + route ? route.name : "" + "path";
+      theaters.style.display = "none";
+      search.style.display = "block";
     } else {
-      view.innerHTML = "404: Route not found";
+    //   view.innerHTML = "404: Route not found";
     }
   }
 };
@@ -87,6 +93,7 @@ function loadMovies(page) {
   let lst = document.getElementById("ul-list");
   lst.innerHTML += listHtml;
 }
+
 
 function getHttpRequest(theUrl) {
   var xmlHttp = new XMLHttpRequest();
@@ -183,3 +190,40 @@ function templateReviews(reviews) {
   }
   return listHtmlReviews;
 }
+
+function searchMovie() {
+    let val = document.getElementById("searchMovie");
+    let query = "https://api.themoviedb.org/3/search/movie?include_adult=false&page=1&language=en-US&api_key=bc50218d91157b1ba4f142ef7baaa6a0&query=" + val.value;
+    let movies = getHttpRequest(query);
+    currentPath="/search"
+    console.log(movies)
+    loadSearchMovies(movies);
+}
+
+function loadSearchMovies(movies) {
+    // Cache of the template
+    let template = document.getElementById("template-list-item");
+    
+    // Get the contents of the template
+    let templateHtml = template.innerHTML;
+    // Final HTML variable as empty string
+    let listHtml = "";
+  
+    // Loop through dataObject, replace placeholder tags
+    // with actual data, and generate final HTML
+
+    for (let i = 0; i < movies.results.length; i++) {
+      listHtml += templateHtml
+        .replace(/{{id}}/g, movies.results[i]["id"])
+        .replace(/{{title}}/g, movies.results[i]["title"])
+        .replace(/{{vote_average}}/g, movies.results[i]["vote_average"])
+        .replace(/{{year}}/g, new Date(movies.results[i]["release_date"]).getFullYear())
+        .replace(/{{overview}}/g, movies.results[i]["overview"])
+        .replace(/{{url}}/g, movies.results[i]["poster_path"]);
+    }
+    listHtml+="";
+  
+    // Replace the HTML of #list with final HTML
+    let lst = document.getElementById("ul-list-search");
+    lst.innerHTML = listHtml;
+  }

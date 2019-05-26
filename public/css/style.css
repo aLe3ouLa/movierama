@@ -92,3 +92,8 @@ header {
   display: flex;
   flex-wrap: wrap;
 }
+
+#theaters,
+#search{
+    display: none;
+}
