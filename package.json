@@ -1,0 +1,9 @@
+{
+    "name": "movierama",
+    "version": "1.0.0",
+    "dependencies": {},
+    "devDependencies": {
+        "express": "^4.17.1",
+        "nodemon": "^1.19.1"
+    }
+}
