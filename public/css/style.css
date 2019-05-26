@@ -24,6 +24,7 @@ header {
   list-style: none;
 }
 
+
 .navigation li {
   color: white;
 }
@@ -66,4 +67,14 @@ header {
 
 .movie-poster img {
   height: 200px;
+}
+
+.movie-details-additional-info {
+  width: 100vw;
+  background-color: #aaa;
+  padding: 1rem;
+}
+
+.movie-details-similar {
+  display: flex;
 }

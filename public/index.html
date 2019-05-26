@@ -23,10 +23,9 @@
 
     <div id="view"></div>
     <div>
-        <h3>In theaters:</h3>
-        <ul id="ul-list"></ul>
+      <h3>In theaters:</h3>
+      <ul id="ul-list"></ul>
     </div>
-    
 
     <script src="/public/js/app.js"></script>
     <script id="template-list-item" type="text/template">
@@ -42,19 +41,36 @@
                 <div class="movie-details--overview">{{overview}}</div>
             </div>
         </div>
-        <div id="details{{id}}"  style="display:flex"></div>
+        <div class="movie-details-additional-info">
+            <div id="details{{id}}"></div>
+            <div id="trailers{{id}}"></div>
+            <div id="reviews{{id}}"></div>
+        </div>
+
       </li>
     </script>
 
     <script id="template-list-details" type="text/template">
-          <div class="details">
-              <div class="col col-2 movie-poster">
-                  <img src="https://image.tmdb.org/t/p/w500/{{url}}" alt="" />
-              </div>
-              <div class="col col-10 movie-details">
-                  <div class="movie-details--title">{{title}} (<span>2019</span>)</div>
-              </div>
-          </div>
-      </script>
+
+      <div class="movie-details-similar">
+        <div>
+            <div class="movie-poster">
+                <img src="https://image.tmdb.org/t/p/w500/{{url}}" alt="" />
+            </div>
+            <div class="movie-details--title">{{title}} (<span>{{year}}</span>)
+        </div>
+
+      </div>
+    </script>
+
+    <script id="template-list-videos-li" type="text/template">
+      <a href="https://www.youtube.com/watch?v={{url}}" target="_blank">{{name}}</a>
+    </script>
+
+    <script id="template-list-reviews" type="text/template">
+      <div class="author">{{author}}</div>
+      <div>{{content}} </div>
+      -
+    </script>
   </body>
 </html>

@@ -119,7 +119,7 @@ function showDetails(id) {
     let reviews = getHttpRequest("https://api.themoviedb.org/3/movie/" + id +"/reviews?api_key=bc50218d91157b1ba4f142ef7baaa6a0&language=en-US&page=1");
     let similar = getHttpRequest("https://api.themoviedb.org/3/movie/" + id +"/similar?api_key=bc50218d91157b1ba4f142ef7baaa6a0&language=en-US&page=1");
 
-    console.log(videos)
+    console.log(similar)
     // Cache of the template
   let template = document.getElementById("template-list-details");
   // Get the contents of the template
@@ -130,10 +130,45 @@ function showDetails(id) {
     listHtml += templateHtml
       .replace(/{{id}}/g, similar.results[i]["id"])
       .replace(/{{title}}/g, similar.results[i]["title"])
+      .replace(/{{year}}/g, new Date(similar.results[i]["release_date"]).getFullYear())
       .replace(/{{url}}/g, similar.results[i]["poster_path"]);
+      
+  }
+  
+
+  let templateVideos = document.getElementById("template-list-videos-li");
+  // Get the contents of the template
+  let templateHtmlVideos = templateVideos.innerHTML;
+  // Final HTML variable as empty string
+  let listHtmlVideos = "";
+  for (let i = 0; i < videos.results.length; i++) {
+    listHtmlVideos += templateHtmlVideos
+      .replace(/{{id}}/g, videos.results[i]["id"])
+      .replace(/{{name}}/g, videos.results[i]["name"])
+      .replace(/{{url}}/g, videos.results[i]["key"]);
   }
 
+  let templateReviews = document.getElementById("template-list-reviews");
+  // Get the contents of the template
+  let templateHtmlReviews= templateReviews.innerHTML;
+  // Final HTML variable as empty string
+  let listHtmlReviews = "";
+  console.log(reviews)
+  if (reviews.results.length > 0 && reviews.results.length <= 2) {
+    for (let i = 0; i < reviews.results.length; i++) {
+      listHtmlReviews += templateHtmlReviews
+        .replace(/{{id}}/g, reviews.results[i]["id"])
+        .replace(/{{content}}/g, reviews.results[i]["content"])
+        .replace(/{{author}}/g, reviews.results[i]["author"]);
+    }
+  }
+  
   let lst = document.getElementById("details"+id);
-  lst.innerHTML += listHtml;
+  lst.innerHTML = listHtml;
+  let lstTrailers = document.getElementById("trailers"+id);
+  lstTrailers.innerHTML += listHtmlVideos;
+  let lstReviews = document.getElementById("reviews"+id);
+  lstReviews.innerHTML = listHtmlReviews;
+  
 
 }
