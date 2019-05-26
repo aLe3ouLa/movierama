@@ -34,14 +34,12 @@ header {
 }
 
 .movie {
-  width: 80%;
-  height: auto;
   background-color: rgb(246, 246, 245);
   box-shadow: 0 1px 1px #eee;
   display: flex;
   flex-wrap: wrap;
   padding: 1rem;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 
 .col {
@@ -52,20 +50,20 @@ header {
 }
 
 .col-2 {
-    -ms-flex: 0 0 16.666667%;
-    flex: 0 0 16.666667%;
-    max-width: 16.666667%;
+  -ms-flex: 0 0 16.666667%;
+  flex: 0 0 16.666667%;
+  max-width: 16.666667%;
 }
 
 .col-10 {
-    flex: 0 0 83.333333%;
-    max-width: 83.333333%;
+  flex: 0 0 83.333333%;
+  max-width: 83.333333%;
 }
 
 .movie-details--title {
-    font-weight: bold;
+  font-weight: bold;
 }
 
-.movie-poster img{
-    height:200px;
+.movie-poster img {
+  height: 200px;
 }

@@ -1,5 +1,4 @@
 window.onload = function() {
-  console.log("DOM has loaded");
   var view = document.getElementById("view");
 
   var activeRoutes = Array.from(document.querySelectorAll("[route]"));
@@ -28,14 +27,13 @@ window.onload = function() {
 
   var myFirstRouter = new Router("myFirstRouter", [
     { path: "/", name: "Root" },
-    { path: "/about", name: "About" },
-    { path: "/contact", name: "Contact" }
+    { path: "/search", name: "Search" }
   ]);
 
   var currentPath = window.location.pathname;
 
   if (currentPath === "/") {
-    loadMovies();
+    loadMovies(1);
   } else {
     var route = myFirstRouter.routes.filter(r => r.path === currentPath)[0];
 
@@ -47,32 +45,46 @@ window.onload = function() {
   }
 };
 
-function loadMovies() {
-  var nowPlaying = getHttpRequest(
-    "https://api.themoviedb.org/3/movie/now_playing?api_key=bc50218d91157b1ba4f142ef7baaa6a0&language=en-US&page=1"
+function loadMovies(page) {
+  let nowPlaying = getHttpRequest(
+    "https://api.themoviedb.org/3/movie/now_playing?api_key=bc50218d91157b1ba4f142ef7baaa6a0&language=en-US&page=" +
+      page
+  );
+  let genres = getHttpRequest(
+    "https://api.themoviedb.org/3/genre/movie/list?api_key=bc50218d91157b1ba4f142ef7baaa6a0&language=en-US&page=1"
   );
 
   // Cache of the template
-  var template = document.getElementById("template-list-item");
+  let template = document.getElementById("template-list-item");
   // Get the contents of the template
-  var templateHtml = template.innerHTML;
+  let templateHtml = template.innerHTML;
   // Final HTML variable as empty string
-  var listHtml = "";
+  let listHtml = "";
 
   // Loop through dataObject, replace placeholder tags
   // with actual data, and generate final HTML
   for (let i = 0; i < nowPlaying.results.length; i++) {
-    console.log(nowPlaying.results[i]);
+    let genre_ids = nowPlaying.results[i].genre_ids;
+    let movieGenre = "";
+    if (genre_ids.length > 0) {
+      for (let j = 0; j < genre_ids.length; j++) {
+        movieGenre +=
+          genres.genres.filter(r => r.id === genre_ids[j])[0].name + " ";
+      }
+    }
+
     listHtml += templateHtml
       .replace(/{{id}}/g, nowPlaying.results[i]["id"])
       .replace(/{{title}}/g, nowPlaying.results[i]["title"])
-      .replace(/{{city}}/g, nowPlaying.results[i]["popularity"])
-      .replace(/{{state}}/g, nowPlaying.results[i]["poster_path"])
+      .replace(/{{genres}}/g, movieGenre)
+      .replace(/{{vote_average}}/g, nowPlaying.results[i]["vote_average"])
+      .replace(/{{overview}}/g, nowPlaying.results[i]["overview"])
       .replace(/{{url}}/g, nowPlaying.results[i]["poster_path"]);
   }
 
   // Replace the HTML of #list with final HTML
-  document.getElementById("list").innerHTML = listHtml;
+  let lst = document.getElementById("ul-list");
+  lst.innerHTML += listHtml;
 }
 
 function getHttpRequest(theUrl) {
@@ -81,3 +93,21 @@ function getHttpRequest(theUrl) {
   xmlHttp.send(null);
   return JSON.parse(xmlHttp.responseText);
 }
+var count = 1;
+
+function isVisible(elem) {
+  let coords = document.documentElement.getBoundingClientRect();
+
+  let windowHeight = document.documentElement.clientHeight;
+
+  // top elem edge is visible OR bottom elem edge is visible
+  let topVisible = coords.top > 0 && coords.top < windowHeight;
+  let bottomVisible = coords.bottom <= windowHeight && coords.bottom > 0;
+  if (bottomVisible) {
+    console.log(++count);
+    loadMovies(count);
+  }
+  return topVisible || bottomVisible;
+}
+
+window.onscroll = isVisible;
