@@ -23,7 +23,7 @@
 
     <div id="view"></div>
     <div>
-        <h3>Now on theaters:</h3>
+        <h3>In theaters:</h3>
         <ul id="ul-list"></ul>
     </div>
     
@@ -36,30 +36,25 @@
                 <img src="https://image.tmdb.org/t/p/w500/{{url}}" alt="" />
             </div>
             <div class="col col-10 movie-details">
-                <div class="movie-details--title">{{title}} (<span>2019</span>)</div>
+                <div class="movie-details--title">{{title}} (<span>{{year}}</span>)</div>
                 <div class="movie-details--genres">{{genres}}</div>
                 <div class="movie-details--movie-average">{{vote_average}}/10</div>
                 <div class="movie-details--overview">{{overview}}</div>
             </div>
         </div>
-        <div id="details"></div>
+        <div id="details{{id}}"  style="display:flex"></div>
       </li>
     </script>
 
     <script id="template-list-details" type="text/template">
-        <li>
-          <div class="movie">
+          <div class="details">
               <div class="col col-2 movie-poster">
                   <img src="https://image.tmdb.org/t/p/w500/{{url}}" alt="" />
               </div>
               <div class="col col-10 movie-details">
                   <div class="movie-details--title">{{title}} (<span>2019</span>)</div>
-                  <div class="movie-details--genres">{{genres}}</div>
-                  <div class="movie-details--movie-average">{{vote_average}}/10</div>
-                  <div class="movie-details--overview">{{overview}}</div>
               </div>
           </div>
-        </li>
       </script>
   </body>
 </html>

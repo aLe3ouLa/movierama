@@ -78,6 +78,7 @@ function loadMovies(page) {
       .replace(/{{title}}/g, nowPlaying.results[i]["title"])
       .replace(/{{genres}}/g, movieGenre)
       .replace(/{{vote_average}}/g, nowPlaying.results[i]["vote_average"])
+      .replace(/{{year}}/g, new Date(nowPlaying.results[i]["release_date"]).getFullYear())
       .replace(/{{overview}}/g, nowPlaying.results[i]["overview"])
       .replace(/{{url}}/g, nowPlaying.results[i]["poster_path"]);
   }
@@ -113,13 +114,26 @@ function isVisible(elem) {
 window.onscroll = isVisible;
 
 function showDetails(id) {
-    console.log(id);
     let movie = getHttpRequest("https://api.themoviedb.org/3/movie/" + id +"?api_key=bc50218d91157b1ba4f142ef7baaa6a0&language=en-US&page=1");
     let videos = getHttpRequest("https://api.themoviedb.org/3/movie/" + id +"/videos?api_key=bc50218d91157b1ba4f142ef7baaa6a0&language=en-US&page=1");
     let reviews = getHttpRequest("https://api.themoviedb.org/3/movie/" + id +"/reviews?api_key=bc50218d91157b1ba4f142ef7baaa6a0&language=en-US&page=1");
     let similar = getHttpRequest("https://api.themoviedb.org/3/movie/" + id +"/similar?api_key=bc50218d91157b1ba4f142ef7baaa6a0&language=en-US&page=1");
-    console.log(movie)
+
     console.log(videos)
-    console.log(reviews)
-    console.log(similar)
+    // Cache of the template
+  let template = document.getElementById("template-list-details");
+  // Get the contents of the template
+  let templateHtml = template.innerHTML;
+  // Final HTML variable as empty string
+  let listHtml = "";
+  for (let i = 0; i < similar.results.length; i++) {
+    listHtml += templateHtml
+      .replace(/{{id}}/g, similar.results[i]["id"])
+      .replace(/{{title}}/g, similar.results[i]["title"])
+      .replace(/{{url}}/g, similar.results[i]["poster_path"]);
+  }
+
+  let lst = document.getElementById("details"+id);
+  lst.innerHTML += listHtml;
+
 }
