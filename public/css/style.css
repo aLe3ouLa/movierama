@@ -1,30 +1,71 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Lato", Arial, Helvetica, sans-serif;
 }
 
 header {
-    background-color: #123456;
-    height: 2.5rem;
-    display: flex;
-    align-items: center;
-    padding: 1rem;
+  background-color: #123456;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
 }
 
 .navigation {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  list-style: none;
 }
 
 .navigation li {
-    color: white;
+  color: white;
 }
 
 .navigation_sitetitle {
-    font-size: 1.3rem;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.movie {
+  width: 80%;
+  height: auto;
+  background-color: rgb(246, 246, 245);
+  box-shadow: 0 1px 1px #eee;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1rem;
+  margin-bottom: .5rem;
+}
+
+.col {
+  position: relative;
+  width: 100%;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.col-2 {
+    -ms-flex: 0 0 16.666667%;
+    flex: 0 0 16.666667%;
+    max-width: 16.666667%;
+}
+
+.col-10 {
+    flex: 0 0 83.333333%;
+    max-width: 83.333333%;
+}
+
+.movie-details--title {
     font-weight: bold;
+}
+
+.movie-poster img{
+    height:200px;
 }
