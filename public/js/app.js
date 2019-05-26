@@ -120,7 +120,19 @@ function showDetails(id) {
     let similar = getHttpRequest("https://api.themoviedb.org/3/movie/" + id +"/similar?api_key=bc50218d91157b1ba4f142ef7baaa6a0&language=en-US&page=1");
 
     console.log(similar)
-    // Cache of the template
+
+  document.getElementById("additional"+id).style.display = "block";
+  let lst = document.getElementById("details"+id);
+  lst.innerHTML = templateSimilar(similar);
+  let lstTrailers = document.getElementById("trailers"+id);
+  lstTrailers.innerHTML += templateVideos(videos);
+  let lstReviews = document.getElementById("reviews"+id);
+  lstReviews.innerHTML = templateReviews(reviews);
+  
+
+}
+
+function templateSimilar(similar) {
   let template = document.getElementById("template-list-details");
   // Get the contents of the template
   let templateHtml = template.innerHTML;
@@ -134,7 +146,10 @@ function showDetails(id) {
       .replace(/{{url}}/g, similar.results[i]["poster_path"]);
       
   }
-  
+  return listHtml;
+}
+
+function templateVideos(videos) {
 
   let templateVideos = document.getElementById("template-list-videos-li");
   // Get the contents of the template
@@ -148,6 +163,10 @@ function showDetails(id) {
       .replace(/{{url}}/g, videos.results[i]["key"]);
   }
 
+  return listHtmlVideos;
+}
+
+function templateReviews(reviews) {
   let templateReviews = document.getElementById("template-list-reviews");
   // Get the contents of the template
   let templateHtmlReviews= templateReviews.innerHTML;
@@ -162,13 +181,5 @@ function showDetails(id) {
         .replace(/{{author}}/g, reviews.results[i]["author"]);
     }
   }
-  
-  let lst = document.getElementById("details"+id);
-  lst.innerHTML = listHtml;
-  let lstTrailers = document.getElementById("trailers"+id);
-  lstTrailers.innerHTML += listHtmlVideos;
-  let lstReviews = document.getElementById("reviews"+id);
-  lstReviews.innerHTML = listHtmlReviews;
-  
-
+  return listHtmlReviews;
 }

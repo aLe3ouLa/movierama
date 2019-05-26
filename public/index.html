@@ -41,30 +41,24 @@
                 <div class="movie-details--overview">{{overview}}</div>
             </div>
         </div>
-        <div class="movie-details-additional-info">
-            <div id="details{{id}}"></div>
+        <div class="movie-details-additional-info" id="additional{{id}}" style="display: none;">
+            <h3>Similar movies</h3>
+            <div id="details{{id}}" class="movie-additional"></div>
             <div id="trailers{{id}}"></div>
             <div id="reviews{{id}}"></div>
         </div>
-
       </li>
     </script>
 
     <script id="template-list-details" type="text/template">
-
       <div class="movie-details-similar">
-        <div>
-            <div class="movie-poster">
-                <img src="https://image.tmdb.org/t/p/w500/{{url}}" alt="" />
-            </div>
-            <div class="movie-details--title">{{title}} (<span>{{year}}</span>)
-        </div>
-
+            <div class="movie-additional-poster"><img src="https://image.tmdb.org/t/p/w500/{{url}}" alt="" /></div>
+            <div class="movie-additional--title">{{title}} (<span>{{year}}</span>) </div>
       </div>
     </script>
 
     <script id="template-list-videos-li" type="text/template">
-      <a href="https://www.youtube.com/watch?v={{url}}" target="_blank">{{name}}</a>
+      <div><a href="https://www.youtube.com/watch?v={{url}}" target="_blank">{{name}}</a></div>
     </script>
 
     <script id="template-list-reviews" type="text/template">

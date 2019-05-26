@@ -65,6 +65,19 @@ header {
   font-weight: bold;
 }
 
+.movie-additional--title {
+  width: 8rem;
+  overflow:hidden; 
+  white-space:nowrap; 
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  font-weight: bold;
+}
+
+.movie-additional-poster img{
+  height: 150px;
+}
+
 .movie-poster img {
   height: 200px;
 }
@@ -75,6 +88,7 @@ header {
   padding: 1rem;
 }
 
-.movie-details-similar {
+.movie-additional{
   display: flex;
+  flex-wrap: wrap;
 }
