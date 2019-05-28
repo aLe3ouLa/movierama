@@ -4,16 +4,35 @@ window.onload = function() {
   var theaters = document.getElementById("theaters");
   var search = document.getElementById("search");
 
+  var currentPath = window.location.pathname;
+
   var activeRoutes = Array.from(document.querySelectorAll("[route]"));
   function navigate(event) {
     let route = event.target.attributes[0].value;
     let routeInfo = myFirstRouter.routes.filter(r => r.path === route)[0];
     console.log(routeInfo);
+    currentPath = window.location.pathname;
     if (!routeInfo) {
     //   view.innerHTML = "No route exists with this path";
+    
     } else {
       window.history.pushState({}, "name", routeInfo.path);
     //   view.innerHTML = " You have clicked the " + routeInfo.name + " route";
+    if (currentPath === "/") {
+      loadMovies(1);
+      theaters.style.display = "block";
+      search.style.display = "none";
+    } else {
+      var route = myFirstRouter.routes.filter(r => r.path === currentPath)[0];
+  
+      if (route) {
+      //   view.innerHTML = "You are on the " + route ? route.name : "" + "path";
+        theaters.style.display = "none";
+        search.style.display = "block";
+      } else {
+      //   view.innerHTML = "404: Route not found";
+      }
+    }
     }
   }
 
@@ -33,7 +52,7 @@ window.onload = function() {
     { path: "/search", name: "Search" }
   ]);
 
-  var currentPath = window.location.pathname;
+ 
 
   if (currentPath === "/") {
     loadMovies(1);
